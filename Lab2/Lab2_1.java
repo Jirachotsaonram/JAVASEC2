@@ -1,3 +1,4 @@
+package Lab2;
 // package Lab2; 
 // Lab 2-1 
 // File Name : Lab2_1.java 
