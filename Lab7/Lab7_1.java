@@ -1,13 +1,15 @@
 package Lab7;
 
+// File Name : Lab7_1.java 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 public class Lab7_1 extends JFrame {
-    JLabel numberLabel, blankLabel, resultLabel;
-    JTextField numberField, blankField;
+    JLabel numberLabel, resultLabel, blankLabel;
+    JTextField numberField,blankField;
     JTextArea resultArea;
+    JScrollPane scroller;
 
     public Lab7_1() {
         // title bar in window
@@ -15,61 +17,58 @@ public class Lab7_1 extends JFrame {
         // obtain content pane and set its layout to FlowLayout
         Container container = getContentPane();
         container.setLayout(new FlowLayout());
-
         // create numberLabel and attach it to content pane
-        numberLabel = new JLabel("Enter integer and press Enter:");
-        container.add(numberLabel);
 
+        numberLabel = new JLabel("Enter integer and press Enter");
+        container.add(numberLabel);
         // create numberField and attach it to content pane
+        
         numberField = new JTextField(10);
         container.add(numberField);
 
-        // create blankLabel and attach it to content pane
-        blankLabel = new JLabel("Enter number of blanks:");
+        // create numberLabel and attach it to content pane
+        blankLabel = new JLabel("Enter integer number of larbel");
         container.add(blankLabel);
-
-        // create blankField and attach it to content pane
+        // create numberField and attach it to content pane
         blankField = new JTextField(10);
         container.add(blankField);
-
-        // create resultArea and attach it to content pane
-        resultArea = new JTextArea(5, 20);
-        container.add(resultArea);
-
         // register this applet as numberField’s ActionListener
-        numberField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                displayResult();
-            }
-        });
 
-        // register this applet as blankField’s ActionListener
-        blankField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                displayResult();
-            }
-        });
-    }
-
-    private void displayResult() {
-        try {
-            int number = Integer.parseInt(numberField.getText());
-            int blanks = Integer.parseInt(blankField.getText());
-            StringBuilder result = new StringBuilder();
-            for (int i = 0; i < blanks; i++) {
-                result.append(" ");
-            }
-            result.append(number);
-            resultArea.setText(result.toString());
-        } catch (NumberFormatException e) {
-            resultArea.setText("Please enter valid integers.");
-        }
+        numberField.addActionListener(
+                // create inner class
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        int number, sumValue , blanknumber;
+                        String blank5 = "";
+                        number = Integer.parseInt(numberField.getText());
+                        blanknumber = Integer.parseInt(blankField.getText());
+                        for (int i = 0; i < blanknumber; i++) {
+                            blank5 += " ";
+                        }
+                        // clear value in TextArea
+                        resultArea.setText("");
+                        // add data in textarea
+                        for (int n = 1; n <= number; n++) {
+                            resultArea.append(blank5 + Integer.toString(n));
+                            if (n % 5 == 0)
+                                resultArea.append("\n");
+                        }
+                        // clear value in numberField
+                        numberField.setText("");
+                    } // end method actionPerformed
+                });
+                
+        // create display
+        resultArea = new JTextArea(10, 20);
+        resultArea.setEditable(false);
+        scroller = new JScrollPane(resultArea);
+        container.add(scroller);
     }
 
     public static void main(String[] args) {
-        Lab7_1 app = new Lab7_1();
-        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        app.setSize(300, 200);
-        app.setVisible(true);
+        Lab7_1 window = new Lab7_1();
+        window.setSize(360, 260);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setVisible(true);
     }
 }
