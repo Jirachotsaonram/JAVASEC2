@@ -16,5 +16,12 @@ public class PointJFrame exteds java.swing.JFrame {
             int y = 5 + (int) (Math.randow() * 300);
             p[n] = new Point(x,y);
          }
-    }
+    }// end constructor
+
+    public void paint( Graphics g) {
+        super.paint(g);
+        for(int n = 0; n < p.length; n++) {
+            p[n].draw(g);
+        }
+    }// end paint
 }
